@@ -6,7 +6,7 @@
     <link rel="icon" type="image/png" href="/favicon.ico" />
     <title>IOPaint</title>
   </head>
-  <body>
+  <body oncontextmenu="return false;"> <!-- Disable context menu to resolve conflict with interactive segmentation negative selection -->
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
