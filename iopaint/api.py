@@ -65,7 +65,10 @@ from iopaint.schema import (
 
 CURRENT_DIR = Path(__file__).parent.absolute().resolve()
 WEB_APP_DIR = CURRENT_DIR / "web_app"
-
+if not WEB_APP_DIR.exists():
+    WEB_APP_DIR = CURRENT_DIR / "../web_app/dist"
+if not WEB_APP_DIR.exists():
+    raise FileNotFoundError("web_app not found. Please build web app first using 'pnpm install' & 'pnpm build' command.")
 
 def api_middleware(app: FastAPI):
     rich_available = False
