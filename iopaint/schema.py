@@ -419,33 +419,33 @@ class InpaintRequest(BaseModel):
     )
 
     @model_validator(mode="after")
-    def validate_field(cls, values: "InpaintRequest"):
-        if values.sd_seed == -1:
-            values.sd_seed = random.randint(1, 99999999)
-            logger.info(f"Generate random seed: {values.sd_seed}")
+    def validate_field(self):
+        if self.sd_seed == -1:
+            self.sd_seed = random.randint(1, 99999999)
+            logger.info(f"Generate random seed: {self.sd_seed}")
 
-        if values.use_extender and values.enable_controlnet:
+        if self.use_extender and self.enable_controlnet:
             logger.info("Extender is enabled, set controlnet_conditioning_scale=0")
-            values.controlnet_conditioning_scale = 0
+            self.controlnet_conditioning_scale = 0
 
-        if values.use_extender:
+        if self.use_extender:
             logger.info("Extender is enabled, set sd_strength=1")
-            values.sd_strength = 1.0
+            self.sd_strength = 1.0
 
-        if values.enable_brushnet:
+        if self.enable_brushnet:
             logger.info("BrushNet is enabled, set enable_controlnet=False")
-            if values.enable_controlnet:
-                values.enable_controlnet = False
-            if values.sd_lcm_lora:
+            if self.enable_controlnet:
+                self.enable_controlnet = False
+            if self.sd_lcm_lora:
                 logger.info("BrushNet is enabled, set sd_lcm_lora=False")
-                values.sd_lcm_lora = False
+                self.sd_lcm_lora = False
 
-        if values.enable_controlnet:
+        if self.enable_controlnet:
             logger.info("ControlNet is enabled, set enable_brushnet=False")
-            if values.enable_brushnet:
-                values.enable_brushnet = False
+            if self.enable_brushnet:
+                self.enable_brushnet = False
 
-        return values
+        return self
 
 
 class RunPluginRequest(BaseModel):
