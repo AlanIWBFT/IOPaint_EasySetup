@@ -40,6 +40,10 @@ def cli_download_model(model: str):
         )
         logger.info(f"Done. Downloaded to {downloaded_path}")
 
+def cli_download_all_models():
+    from iopaint.model import models
+    for model in models:
+        models[model].download()
 
 def folder_name_to_show_name(name: str) -> str:
     return name.replace("models--", "").replace("--", "/")

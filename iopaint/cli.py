@@ -39,6 +39,19 @@ def download(
 
     cli_download_model(model)
 
+@typer_app.command(help="Download all models")
+def download_all_models(
+    model_dir: Path = Option(
+        DEFAULT_MODEL_DIR,
+        help=MODEL_DIR_HELP,
+        file_okay=False,
+        callback=setup_model_dir,
+    ),
+):
+    from iopaint.download import cli_download_all_models
+
+    cli_download_all_models()
+
 
 @typer_app.command(name="list", help="List downloaded models")
 def list_model(
