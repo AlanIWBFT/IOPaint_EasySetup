@@ -37,6 +37,7 @@
     "axios": "^1.6.2",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
+    "flexsearch": "^0.8.212",
     "fuse.js": "^7.0.0",
     "immer": "^10.0.3",
     "inter-ui": "^4.0.0",
