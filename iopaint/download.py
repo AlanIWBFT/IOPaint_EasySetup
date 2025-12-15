@@ -42,8 +42,16 @@ def cli_download_model(model: str):
 
 def cli_download_all_models():
     from iopaint.model import models
+    from iopaint.model.utils import handle_from_pretrained_exceptions
+
     for model in models:
-        models[model].download()
+        if models[model].is_erase_model or model == ANYTEXT_NAME:
+            models[model].download()
+        else:
+            from diffusers import DiffusionPipeline
+            handle_from_pretrained_exceptions(
+                DiffusionPipeline.download, pretrained_model_name=model, variant="fp16"
+            )
 
 def folder_name_to_show_name(name: str) -> str:
     return name.replace("models--", "").replace("--", "/")
